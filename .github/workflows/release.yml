@@ -22,7 +22,8 @@ concurrency:
 
 jobs:
   release:
-    runs-on: windows-latest
+    # Pin to the image that includes Visual Studio 2022 for this generator.
+    runs-on: windows-2022
 
     steps:
       - name: Resolve release ref
