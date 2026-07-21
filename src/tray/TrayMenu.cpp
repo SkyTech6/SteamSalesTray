@@ -12,6 +12,28 @@ void AppendSummaryRow(HMENU menu, UINT id, const wchar_t* label,
     ::AppendMenuW(menu, MF_STRING, id, text.c_str());
     ::EnableMenuItem(menu, id, MF_BYCOMMAND | MF_GRAYED);
 }
+
+// Force `hwnd` to the foreground even when the caller lacks foreground rights.
+// A right-click on a notification-area icon delivers the input to Explorer (the
+// taskbar or the always-on-top hidden-icons flyout), so a plain
+// SetForegroundWindow is refused by the foreground-lock rule and the flyout
+// stays on top of our menu. Temporarily attaching our input queue to the
+// current foreground thread lifts that restriction; we detach immediately
+// after. This is the well-known workaround for a refused SetForegroundWindow.
+void ForceForeground(HWND hwnd) {
+    const HWND foreground = ::GetForegroundWindow();
+    const DWORD myThread = ::GetCurrentThreadId();
+    const DWORD fgThread =
+        foreground ? ::GetWindowThreadProcessId(foreground, nullptr) : 0;
+
+    if (fgThread && fgThread != myThread) {
+        ::AttachThreadInput(myThread, fgThread, TRUE);
+        ::SetForegroundWindow(hwnd);
+        ::AttachThreadInput(myThread, fgThread, FALSE);
+    } else {
+        ::SetForegroundWindow(hwnd);
+    }
+}
 }  // namespace
 
 UINT ShowTrayMenu(HWND owner, POINT pt, const SummaryTotals& totals) {
@@ -47,13 +69,19 @@ UINT ShowTrayMenu(HWND owner, POINT pt, const SummaryTotals& totals) {
     // Double-click default action = View Product Sales.
     ::SetMenuDefaultItem(menu, IDM_VIEW_SALES, FALSE);
 
-    // Required so the menu dismisses when the user clicks elsewhere.
-    ::SetForegroundWindow(owner);
+    // Take the foreground so the notification-area flyout dismisses and our
+    // menu owns the z-order. ForceForeground works around the foreground-lock
+    // rule that otherwise silently refuses the switch; the trailing WM_NULL post
+    // is Microsoft's documented companion (KB Q135788) so the menu dismisses
+    // cleanly when the user clicks elsewhere.
+    ForceForeground(owner);
 
     const UINT cmd = static_cast<UINT>(::TrackPopupMenuEx(
         menu,
         TPM_RIGHTBUTTON | TPM_RETURNCMD | TPM_NONOTIFY,
         pt.x, pt.y, owner, nullptr));
+
+    ::PostMessageW(owner, WM_NULL, 0, 0);
 
     ::DestroyMenu(menu);
     return cmd;
