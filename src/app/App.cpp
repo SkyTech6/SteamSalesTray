@@ -63,9 +63,9 @@ int App::Run(HINSTANCE instance) {
             nullptr,
             L"The local sales cache could not be opened. It may be missing "
             L"or corrupt.\n\n"
-            L"Yes\t— Rebuild the cache (your API key is kept)\n"
-            L"No\t— Open the data folder\n"
-            L"Cancel\t— Continue without cached data",
+            L"Yes\t- Rebuild the cache (your API key is kept)\n"
+            L"No\t- Open the data folder\n"
+            L"Cancel\t- Continue without cached data",
             L"Steam Sales Tray", MB_YESNOCANCEL | MB_ICONWARNING);
         if (choice == IDYES) {
             const std::wstring db = platform::GetDatabasePath();
@@ -83,8 +83,8 @@ int App::Run(HINSTANCE instance) {
 
     security::DpapiSecretStore store;
     const std::wstring initialTip =
-        store.HasStoredKey() ? L"Steam Sales — Ready"
-                             : L"Steam Sales — API key required";
+        store.HasStoredKey() ? L"Steam Sales - Ready"
+                     : L"Steam Sales - API key required";
     if (!tray_.Add(hwnd_, WM_APP_TRAY, icon_, initialTip)) {
         ::MessageBoxW(nullptr, L"Failed to add the notification-area icon.",
                       L"Steam Sales Tray", MB_OK | MB_ICONERROR);
@@ -263,7 +263,7 @@ void App::OnSettings() {
             case steam::ResultKind::Success:
                 out.ok = true;
                 out.couldTest = true;
-                out.message = L"Connection succeeded — the key is valid.";
+                out.message = L"Connection succeeded - the key is valid.";
                 break;
             case steam::ResultKind::Auth:
                 out.ok = false;
@@ -303,8 +303,8 @@ void App::OnSettings() {
 
 void App::UpdateTooltipForKeyState() {
     security::DpapiSecretStore store;
-    tray_.SetTooltip(store.HasStoredKey() ? L"Steam Sales — Ready"
-                                          : L"Steam Sales — API key required");
+    tray_.SetTooltip(store.HasStoredKey() ? L"Steam Sales - Ready"
+                                          : L"Steam Sales - API key required");
 }
 
 void App::UpdateTray() {
@@ -312,25 +312,25 @@ void App::UpdateTray() {
     std::wstring tip;
     switch (st.status) {
         case sync::SyncStatus::MissingApiKey:
-            tip = L"Steam Sales — API key required";
+            tip = L"Steam Sales - API key required";
             break;
         case sync::SyncStatus::Syncing:
-            tip = L"Steam Sales — Updating…";
+            tip = L"Steam Sales - Updating…";
             break;
         case sync::SyncStatus::AuthenticationFailed:
-            tip = L"Steam Sales — Check API key";
+            tip = L"Steam Sales - Check API key";
             break;
         case sync::SyncStatus::Offline:
         case sync::SyncStatus::ApiError:
         case sync::SyncStatus::ParseError:
         case sync::SyncStatus::DatabaseError:
-            tip = L"Steam Sales — Update failed";
+            tip = L"Steam Sales - Update failed";
             break;
         case sync::SyncStatus::Idle:
         default:
             if (dbOpen_) {
                 const std::int64_t today = db_.SumForDate(platform::SteamToday());
-                tip = L"Steam Sales — Today: " + FormatCount(today);
+                tip = L"Steam Sales - Today: " + FormatCount(today);
                 if (!storage::SettingsStore::GetHideLifetime()) {
                     tip += L" | Lifetime: " + FormatCount(db_.SumLifetime());
                 }

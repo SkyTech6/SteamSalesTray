@@ -6,7 +6,7 @@ namespace storage {
 
 namespace {
 
-// Schema version 1 — the full schema from plan §9. High-water marks are TEXT
+// Schema version 1 - the full schema from plan §9. High-water marks are TEXT
 // because Steam documents them as unsigned 64-bit ids returned as strings.
 constexpr const char* kSchemaV1 = R"SQL(
 CREATE TABLE schema_version (
@@ -48,7 +48,7 @@ INSERT INTO sync_state (id, changed_dates_highwatermark) VALUES (1, '0');
 INSERT INTO schema_version (version) VALUES (1);
 )SQL";
 
-// Schema version 2 — resumable backfill. Adds a checkpoint recording the newest
+// Schema version 2 - resumable backfill. Adds a checkpoint recording the newest
 // financial date fully synced during an initial (high-water mark == '0') sync,
 // so an interrupted full backfill resumes instead of restarting. If an existing
 // database is mid-backfill, seed the cursor from the newest stored date so

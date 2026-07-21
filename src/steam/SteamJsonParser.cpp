@@ -15,7 +15,7 @@ namespace {
 // Confirmed against a live IPartnerFinancialsService/GetDetailedSales/v001
 // response: line-item records live under response.results; each Steam package
 // row carries primary_appid, net/gross_units_sold, gross_units_returned. There
-// is no per-record app name — names come from the response.app_info lookup
+// is no per-record app name - names come from the response.app_info lookup
 // (an array of {appid, app_name}).
 // ---------------------------------------------------------------------------
 constexpr const char* kResponse = "response";

@@ -12,8 +12,8 @@ namespace steam {
 // Classification of a request outcome, driving the UI/error policy (§20).
 enum class ResultKind {
     Success,
-    Offline,        // DNS/connect/timeout — preserve cache, retry later
-    Auth,           // 401/403 or rejected key — stop retrying, prompt user
+    Offline,        // DNS/connect/timeout - preserve cache, retry later
+    Auth,           // 401/403 or rejected key - stop retrying, prompt user
     RateLimited,    // 429
     ServerError,    // 5xx
     TooLarge,       // body exceeded the size cap

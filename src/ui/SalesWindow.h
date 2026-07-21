@@ -20,7 +20,7 @@ enum class SalesPeriod {
 // a selected period, backed by a Win32 ListView in report mode. Closing hides
 // it (the tray app keeps running); the app destroys it on exit.
 //
-// Not a dialog resource — controls are created and laid out by hand so the
+// Not a dialog resource - controls are created and laid out by hand so the
 // window can be freely resized with persisted geometry.
 class SalesWindow {
 public:

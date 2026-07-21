@@ -42,7 +42,7 @@ public:
 
     // --- writes -------------------------------------------------------------
     // Atomically replaces all of `date`'s rows with `rows` (plan §8): delete
-    // the date, upsert products, insert the new daily rows — one transaction,
+    // the date, upsert products, insert the new daily rows - one transaction,
     // rolled back on any error.
     bool ReplaceDate(const std::string& date,
                      const std::vector<DailyProductRow>& rows,

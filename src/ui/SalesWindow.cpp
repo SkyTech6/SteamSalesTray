@@ -378,7 +378,7 @@ LRESULT SalesWindow::HandleMessage(HWND hwnd, UINT msg, WPARAM wParam,
             return 0;
         }
         case WM_CLOSE:
-            // Hide instead of destroy — the tray app keeps running.
+            // Hide instead of destroy - the tray app keeps running.
             SaveGeometry();
             SaveColumnWidths();
             ::ShowWindow(hwnd, SW_HIDE);

@@ -112,9 +112,9 @@ high-value password.
 
 ## Third-party dependencies
 
-Vendored as source under `third_party/` — no package manager required:
+Vendored as source under `third_party/` - no package manager required:
 
-- **SQLite** (public domain amalgamation) — local sync state & sales storage
-- **yyjson** (MIT) — fast C JSON parser for Steam API responses
+- **SQLite** (public domain amalgamation) - local sync state & sales storage
+- **yyjson** (MIT) - fast C JSON parser for Steam API responses
 
 TLS/HTTPS is provided by the OS via WinHTTP; no bundled TLS library is used.
