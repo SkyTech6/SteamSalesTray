@@ -1,5 +1,7 @@
 # Steam Sales Tray
 
+<img width="258" height="271" alt="image" src="https://github.com/user-attachments/assets/516ca9c6-1cd1-4eb7-8f86-14c1056e5a1c" />
+
 A lightweight, native Windows 10/11 system-tray application that retrieves sales
 data from the **Steamworks Partner Financial Web API** and displays **net units
 sold per Steam product** from the notification area.
