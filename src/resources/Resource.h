@@ -6,6 +6,7 @@
 // Tray menu command IDs (also reused for the sales/settings windows later).
 // Summary rows are disabled display-only items but still need unique IDs.
 #define IDM_SUMMARY_TODAY      40001
+#define IDM_SUMMARY_YESTERDAY  40005
 #define IDM_SUMMARY_7DAY       40002
 #define IDM_SUMMARY_30DAY      40003
 #define IDM_SUMMARY_LIFETIME   40004

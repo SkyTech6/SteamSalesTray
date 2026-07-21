@@ -356,6 +356,7 @@ tray::SummaryTotals App::ComputeSummary() {
     }
     const std::string today = platform::SteamToday();
     totals.today = FormatCount(db_.SumForDate(today));
+    totals.yesterday = FormatCount(db_.SumForDate(platform::SteamDateDaysAgo(1)));
     totals.week =
         FormatCount(db_.SumForRange(platform::SteamDateDaysAgo(6), today));
     totals.month =

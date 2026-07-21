@@ -47,7 +47,8 @@ UINT ShowTrayMenu(HWND owner, POINT pt, const SummaryTotals& totals) {
     ::EnableMenuItem(menu, 0, MF_BYPOSITION | MF_GRAYED);
     ::AppendMenuW(menu, MF_SEPARATOR, 0, nullptr);
 
-    AppendSummaryRow(menu, IDM_SUMMARY_TODAY,    L"Today",        totals.today);
+    AppendSummaryRow(menu, IDM_SUMMARY_TODAY,     L"Today",       totals.today);
+    AppendSummaryRow(menu, IDM_SUMMARY_YESTERDAY, L"Yesterday",   totals.yesterday);
     AppendSummaryRow(menu, IDM_SUMMARY_7DAY,     L"Last 7 Days",  totals.week);
     AppendSummaryRow(menu, IDM_SUMMARY_30DAY,    L"Last 30 Days", totals.month);
     if (totals.showLifetime) {
