@@ -104,9 +104,7 @@ high-value password.
   are validating payout-critical numbers.
 - **Product names populate incrementally.** Names come from the `app_info`
   lookup block. Any product with sales on a subsequently-synced date gets its
-  real name; dormant titles synced before this was wired show `App <id>` until
-  they next sell or you run **Settings → Clear Local Sales Cache** (full
-  resync).
+  real name.
 - **First sync can take longer.** Initial backfill may process many historical
   dates; later syncs are incremental.
 
